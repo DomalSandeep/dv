@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PL/SQL Code Examples</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+    <main>
+        <h2>PRACTICAL 1 Demonstrate data collection structures using series.
+
+        </h2>
+
+        <pre>
+<code>
+import pandas as pd
+
+data = [10,20,30,40,50]
+my_series = pd.Series(data)
+
+print("Orignal series:")
+print(my_series)
+
+#Accessing elements by index
+print("\nAcessing elements by index:")
+print("Elements at index 2:", my_series[2])
+print("Elements from index 1 to 3 : ", my_series [1:4])
+
+#Adding labels to the series
+my_series_with_labels = pd.Series(data, index=['A', 'B', 'C', 'D', 'E'])
+print("\nSeries with custom labels:")
+print(my_series_with_labels)
+
+# Accessing elements by custom labels
+print("\nAccessing elements by custom labels:")
+print("Element with label 'C':", my_series_with_labels['C'])
+print("Elements with labels 'B' and 'D':")
+print(my_series_with_labels[['B', 'D']])
+
+#Filtering data in the series
+print("\nFiltering data:")
+filtered_series = my_series_with_labels[my_series_with_labels > 30]
+print("Elements greater than 30:")
+print(filtered_series)
+
+# performing operations on the series
+print("\nOperations on the series:")
+print("Sum of all elements:", my_series_with_labels.sum())
+print("Mean of all elements:",my_series_with_labels.mean())
+print("Maximum element:", my_series_with_labels.max())
+
+</code>
+        </pre>
+        <h2>PRACTICAL  2 Create a data frame and perform different operations on it.
+
+        </h2>
+        <pre>
+<code>
+import pandas as pd
+
+data = {
+	'Name': ['Riya', 'Ayon', 'raj', 'Aniket', 'Eva'],
+	'Age' : [25,30,35,28,22],
+	'City' : ['New York', 'San Fransisco', 'Los Angles', 'Chicago', 'Miami']
+}
+
+#Create a dataframe from a dictionary
+df = pd.DataFrame(data)
+
+#Display the dataframe
+print("Orignal DataFrame:")
+print(df)
+
+#Accessing and manipulating data
+print("\nAccessing and manipulating data:")
+#select a single coloumn by name
+print("Names:")
+print('Name')
+
+#select multiple coloumns
+print("\nName and Age:")
+print(df[['Name', 'Age']])
+
+#Filter rows based on a condition
+print("\nPeople older than 30:")
+print(df[df['Age'] > 30])
+
+#Add a new coloumn
+df['Salary'] = [50000, 60000, 75000, 48000, 55000]
+print("\nDataFrame with Salary:")
+print(df)
+
+#Summary statistics
+print("\nSummary Statistics:")
+print("Mean Age:", df['Age'].mean())
+print("Maximum Age:", df['Age'].max())
+
+#Grouping and aggregaation
+print("\ngrouping and aggregation:")
+city_group = df.groupby('City')
+print("Average age by city:")
+print(city_group['Age'].mean())
+
+#Sorting
+print("\nSorting by Age:")
+sorted_df = df.sort_values(by='Age', ascending=False)
+print(sorted_df)
+
+#Transpose
+print("\n")
+print("Transpose :")
+transposed_df = df.T
+print(transposed_df )
+</code>
+        </pre>
+        <h2>PRACTICAL  3 Create a panel from a dictionary of data frames and perform their operations.
+
+        </h2>
+        <pre>
+<code>
+import pandas as pd
+
+#Create three sample DataFrames
+data1 = {
+    'Name' : ['Alice', 'Bob', 'Charlie'],
+    'Age' : [25, 30, 35]
+}
+
+data2 = {
+  'City' : ['New York', 'San Francisco', 'Los Angeles'],
+    'Salary' : [50000, 60000, 75000]
+}
+
+data3 = {
+  'Country' : ['USA', 'USA', 'USA'],
+    'Language' : ['English', 'English', 'English']
+}
+
+df1 = pd.DataFrame(data1)
+df2 = pd.DataFrame(data2)
+df3 = pd.DataFrame(data3)
+
+#Create a dictionary of DataFrames
+panel_data = {'DataFrame1' : df1, 'DataFrame2' : df2, 'DataFrame3' : df3 }
+
+#Accessing and manipulating DataFrames within "Panel"
+print("Original DataFrames: ")
+print("DataFrame1: ")
+print(panel_data['DataFrame1'])
+print("\nDataFrame2: ")
+print(panel_data['DataFrame2'])
+print("\nDataFrame3: ")
+print(panel_data['DataFrame3'])
+
+#You can perform operations on individual DataFrames
+print("\nOperations on individual DataFrames: ")
+print("Mean age in DataFrame1: ", panel_data['DataFrame1']['Age'].mean())
+print("Maximum salary in DataFrame2: ", panel_data['DataFrame2']['Salary'].max())
+
+#You can concatenate DataFrames on a specific axis
+combined_df = pd.concat(panel_data.values(), axis=1)
+print("\nCombined DataFrame: ")
+print(combined_df)
+
+</code>
+        </pre>
+        <h2>PRACTICAL  4 Write a program to perform file handling operation
+
+        </h2>
+        <pre>
+<code>
+# File handling operations in Python
+
+# Open a file in write mode ('w' or 'wt' for text mode)
+file_path = 'Practical 4.txt'
+with open(file_path, 'w') as file:
+    # Write content to the file
+    file.write("Hello, this is a sample file.\n")
+    file.write("Writing data to a file in Python.\n")
+    file.write("File handling is important in programming.")
+
+# Open the file in read mode ('r' or 'rt' for text mode)
+with open(file_path, 'r') as file:
+    # Read content from the file
+    content = file.read()
+    print("Content of the file:")
+    print(content)
+
+# Open the file in append mode ('a' or 'at' for text mode)
+with open(file_path, 'a') as file:
+    # Append additional content to the file
+    file.write("\nAppending more data to the file.")
+
+# Open the file again in read mode to see the updated content
+with open(file_path, 'r') as file:
+    # Read and print the updated content
+    updated_content = file.read()
+    print("\nUpdated content of the file:")
+    print(updated_content)
+
+</code>
+        </pre>
+        <h2>PRACTICAL  5 Perform data cleaning and pre-processing with different files
+
+        </h2>
+        <pre>
+<code>
+#Practical 5
+ 
+import pandas as pd
+import numpy as np
+
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+
+# Load your dataset
+data = pd.read_csv('your_dataset.csv')
+
+# Display basic information about the dataset
+print("Original Dataset:")
+print(data.info())
+print("\nSample Data:")
+print(data.head())
+
+# Handling missing values
+missing_values = data.isnull().sum()
+print("\nMissing Values:")
+print(missing_values)
+
+# Impute missing numerical values with mean
+num_cols = data.select_dtypes(include=np.number).columns
+num_imputer = SimpleImputer(strategy='mean')
+data[num_cols] = num_imputer.fit_transform(data[num_cols])
+
+# Impute missing categorical values with the most frequent value
+cat_cols = data.select_dtypes(exclude=np.number).columns
+cat_imputer = SimpleImputer(strategy='most_frequent')
+data[cat_cols] = cat_imputer.fit_transform(data[cat_cols])
+
+# Handle duplicate rows
+data = data.drop_duplicates()
+
+# Remove unnecessary columns (adjust as needed)
+cols_to_drop = ['unnecessary_column1', 'unnecessary_column2']
+data = data.drop(cols_to_drop, axis=1)
+
+# Display cleaned and pre-processed data
+print("\nCleaned and Pre-processed Dataset:")
+print(data.head())
+
+</code>
+        </pre>
+        <h2>PRACTICAL 6 Write a program to handle missing and outlier values.
+
+
+        </h2>
+        <pre>
+<code>
+#Practical 6 
+import numpy as np 
+import pandas as pd
+
+#Generate a sample dataset with missing values and outliers 
+data = {'Feature1' : [1, 2, 3, np.nan, 5, 6, 7, 8, 9, 10], 'Feature2' : [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
+
+df = pd.DataFrame(data)
+
+#Handle missing values (using mean imputation)
+df['Feature1'].fillna(df['Feature1'].mean(), inplace = True)
+   
+#Detect and handle outliers (using Z-score method)
+from scipy import stats
+   
+z_scores = np.abs(stats.zscore(df))
+threshold = 3
+   
+outliers = np.where(z_scores > threshold)
+   
+#remove outliers
+df_no_outliers = df[(z_scores < threshold).all(axis=1)] 
+
+#Print all
+print("Original DataFrame: ")   
+print(df)   
+print("\nDataFrame with missing values handled: ") 
+print(df_no_outliers)   
+
+</code>
+        </pre>
+        <h2>PRACTICAL  7 Demonstrate Data exploration on series and data frame.
+
+        </h2>
+        <pre>
+<code>
+import pandas as pd
+import numpy as np
+
+# Create a sample dataset
+data = {'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Emma'],
+        'Age': [25, 30, 22, 35, 28],
+        'Salary': [50000, 60000, 45000, 70000, 55000],
+        'City': ['New York', 'San Francisco', 'Los Angeles', 'Chicago', 'Boston']}
+
+# Create a DataFrame from the dataset
+df = pd.DataFrame(data)
+
+# Display the DataFrame
+print("Original DataFrame:")
+print(df)
+print("\n")
+
+# Data exploration on Series
+age_series = df['Age']
+
+# Basic statistics on the Age series
+print("Summary statistics for Age:")
+print(age_series.describe())
+print("\n")
+
+# Check for missing values in the Age series
+print("Missing values in Age:")
+print(age_series.isnull().sum())
+print("\n")
+
+# Data exploration on DataFrame
+# Summary statistics for the entire DataFrame
+print("Summary statistics for the DataFrame:")
+print(df.describe())
+print("\n")
+
+# Correlation matrix for the DataFrame (excluding non-numeric columns)
+numeric_df = df.select_dtypes(include=[np.number])
+print("Correlation matrix for the DataFrame:")
+print(numeric_df.corr())
+print("\n")
+
+# Count the occurrences of each unique value in the City column
+print("Count of unique values in the City column:")
+print(df['City'].value_counts())
+print("\n")
+
+# Grouping by City and calculating mean salary
+grouped_by_city = df.groupby('City')['Salary'].mean()
+print("Mean salary grouped by City:")
+print(grouped_by_city)
+
+</code>
+        </pre>
+        <h2>PRACTICAL  8
+            Aim: Write a program for statistical analysis.
+            From Kaggle download ‘ SampleSuperstore.csv ’ file
+            Upload the file to Jupyter Notebook
+            
+
+        </h2>
+        <pre>
+<code>
+import pandas as pd 
+
+#reading the datset
+data = pd.read_csv('SampleSuperstore.csv')
+print(data)
+print("\n")
+
+#Returns the first n rows of the object based on the position 
+print("Head data : ")
+print(data.head(12))
+print("\n")
+
+#Checking the  missing values in the dataset  
+print("Finding the missing Values is any: ")
+print(data.isnull().mean())
+print("\n")
+
+#Allows the user to analyze and drop rows/coloumns with null values 
+print("analyzing rows and coloumns with null values :")
+print(data.dropna)
+print("\n")
+
+
+#Calculates and prints the shape of the dataframe
+print("shapes : ")
+print(data.shape)
+print("\n")
+
+#iloc method
+print("Using iloc method")
+subset = data.iloc[0:3,1:3]
+print(subset)
+print("\n")
+
+</code>
+        </pre>
+        <h2>PRACTICAL  9 Visualize data through Matplotlib.
+<h3>Different types:
+    Linear graph
+    Line chart
+    Bar chart
+    Histogram
+    Scatter Plot
+    Pie chart
+    </h3>
+        </h2>
+        <pre>
+<code>
+import matplotlib.pyplot as plt
+
+# initializing the data
+x = [10, 20, 30, 40]
+y = [20, 25, 35, 55]
+
+# plotting the data
+plt.plot(x, y)
+
+# Adding title to the plot
+plt.title("Linear graph", fontsize=25, color="green")
+
+# Adding label on the y-axis
+plt.ylabel('Y-Axis')
+
+# Adding label on the x-axis
+plt.xlabel('X-Axis')
+
+plt.show()
+
+
+Line chart
+import matplotlib.pyplot as plt
+
+# initializing the data
+x = [10, 20, 30, 40]
+y = [20, 25, 35, 55]
+
+# plotting the data
+plt.plot(x, y, color='clue', linewidth=3, marker='o', 
+		markersize=15, linestyle='--')
+
+# Adding title to the plot
+plt.title("Linear Chart", fontsize=14, color="blue")
+
+# Adding label on the y-axis
+plt.ylabel('Y-Axis')
+
+# Adding label on the x-axis
+plt.xlabel('X-Axis')
+
+plt.show()
+
+
+Bar Chart
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Reading the .csv file
+data = pd.read_csv('SampleSuperstore.csv')
+
+# initializing the data
+x= data['Quantity']
+y = data['Sales']
+
+# plotting the data
+plt.bar(x, y)
+
+# Adding title to the plot
+plt.title("Bar Chart")
+
+# Adding label on the y-axis
+plt.ylabel('State')
+
+# Adding label on the x-axis
+plt.xlabel('Quantity')
+
+plt.show()
+
+Histogram
+#Histogram 
+
+import matplotlib.pyplot as plt 
+
+data = pd.read_csv('SampleSuperstore.csv')
+
+x= data['Quantity']
+
+plt.hist(x)
+plt.title("Histogram")
+plt.xlabel = ("X-axis")
+plt.show()
+
+Scatter plot
+#Bar chart 
+
+import matplotlib.pyplot as plt 
+
+data = pd.read_csv('SampleSuperstore.csv')
+
+x= data['Quantity']
+y= data['Sales']
+
+plt.scatter(x, y)
+plt.title("Bar Chart")
+plt.xlabel = ("X-axis")
+plt.ylabel = ("Y-axis")
+plt.show()
+
+
+PieChart
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# initializing the data
+cars = ['AUDI', 'BMW', 'FORD',
+		'TESLA', 'JAGUAR',]
+data = [23, 10, 35, 15, 12]
+
+# plotting the data
+plt.pie(data, labels=cars)
+
+# Adding title to the plot
+plt.title("Car data")
+
+plt.show()
+
+
+</code>
+<h2>PRACTICAL  10 Visualize data through Seaborn.
+
+</h2>
+<pre>
+<code>
+import seaborn
+import matplotlib.pyplot as plt
+seaborn.set(style = 'whitegrid')
+tip = seaborn.load_dataset("tips")
+seaborn.stripplot(x="day", y="total_bill", data=tip)
+plt.show()
+
+
+
+
+Swarm Plot
+
+
+import seaborn
+seaborn.set(style='whitegrid')
+fmri = seaborn.load_dataset("fmri")
+seaborn.swarmplot(x="timepoint",
+y="signal",
+data=fmri)
+
+
+
+seaborn.jointplot() :
+
+# importing required packages 
+import seaborn as sns 
+import matplotlib.pyplot as plt 
+
+# loading dataset 
+data = sns.load_dataset("attention") 
+
+# draw jointplot with 
+# hex kind 
+sns.jointplot(x = "solutions", y = "score", 
+			kind = "hex", data = data) 
+# show the plot 
+plt.show() 
+
+
+
+</code>
+</pre>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 ALL THE BEST</p>
+    </footer>
+
+</body>
+</html>
